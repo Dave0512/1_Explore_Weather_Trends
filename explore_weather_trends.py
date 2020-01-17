@@ -3,9 +3,12 @@
 import numpy as np
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
+sns.set(style='darkgrid')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 path_source = os.path.join(BASE_DIR + "/1_Sources/")
@@ -59,12 +62,24 @@ class roll_avg:
         df_final = self._add_col_source()
         return df_final
 
+    def _add_visualisation(self):
+        df = self._final()
+        df = df[[self.created_column,'file',self.load_column_to_sort]]
+        line_chart = sns.lineplot(x=df[self.load_column_to_sort], y=df[self.created_column], data=df)
+        return line_chart
+
+# In [46]: sns.lineplot(x='num', y='sqr', data=pdnumsqr)
+
 def _main():
     """ def to create objects and execute class methods """
     city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
     global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
+    city_data._add_visualisation()
     print(city_data._final())
-    print(global_data._final())
+
+    # city_data._add_visualisation()
+    # print(global_data._add_visualisation())
+
 
 
 if __name__ == "__main__":
