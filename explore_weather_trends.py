@@ -15,9 +15,11 @@ print(path_source)
 class roll_avg:
     """class to calculate roll_avg"""
 
-    def __init__(self, l_sour,l_c_t_sort,l_c_f_c,c_c,p_w):
+    def __init__(self, l_sour,data_type_sour,l_c_t_sort,l_c_f_c,c_c,p_w):
+
         """ Constructor method """
         self.load_source = l_sour
+        self.data_type_source = data_type_sour
         self.load_column_to_sort = l_c_t_sort
         self.loaded_column_for_calc = l_c_f_c
         self.created_column = c_c
@@ -25,7 +27,7 @@ class roll_avg:
 
     def _load_df(self):
         """ load desired data """
-        df = pd.read_csv(path_source+self.load_source)
+        df = pd.read_csv(path_source+self.load_source+self.data_type_source)
         return df
 
     def _sort_df(self):
@@ -46,15 +48,21 @@ class roll_avg:
         df[self.created_column] = df[self.loaded_column_for_calc].rolling(window=self.period_window, center=False).mean()
         return df
 
+    def _add_col_source(self):
+        df = self._execute_calc()
+        df['file'] = pd.Series()
+        df['file'] = df['file'].replace(np.NaN,self.load_source)
+        return df
+
     def _final(self):
         """ returns the final df to main """
-        df_final = self._execute_calc()
+        df_final = self._add_col_source()
         return df_final
 
 def _main():
     """ def to create objects and execute class methods """
-    city_data = roll_avg("city_data_hamburg.csv","year",'avg_temp','created_col_rol_avg',7)
-    global_data = roll_avg("global_data.csv","year",'avg_temp','created_col_rol_avg',7)
+    city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
+    global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
     print(city_data._final())
     print(global_data._final())
 
