@@ -1,0 +1,14 @@
+
+select *
+from city_list
+
+select *
+from city_data
+
+
+select *
+from city_data
+where city_data.city like '%Ham%'
+
+select *
+from global_data
