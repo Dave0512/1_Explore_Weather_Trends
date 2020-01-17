@@ -52,9 +52,12 @@ class roll_avg:
         return df_final
 
 def _main():
-    """ def to create objects and execute """
-    df_for_calc = roll_avg("city_data_hamburg.csv","year",'avg_temp','created_col_rol_avg',7)
-    print(df_for_calc._final())
+    """ def to create objects and execute class methods """
+    city_data = roll_avg("city_data_hamburg.csv","year",'avg_temp','created_col_rol_avg',7)
+    global_data = roll_avg("global_data.csv","year",'avg_temp','created_col_rol_avg',7)
+    print(city_data._final())
+    print(global_data._final())
+
 
 if __name__ == "__main__":
     _main()
