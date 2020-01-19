@@ -21,12 +21,12 @@ class roll_avg:
     def __init__(self, l_sour,data_type_sour,l_c_t_sort,l_c_f_c,c_c,p_w):
 
         """ Constructor method """
-        self.load_source = l_sour
+        self.load_source = l_sour # file
         self.data_type_source = data_type_sour
-        self.load_column_to_sort = l_c_t_sort
-        self.loaded_column_for_calc = l_c_f_c
-        self.created_column = c_c
-        self.period_window = p_w
+        self.load_column_to_sort = l_c_t_sort # year
+        self.loaded_column_for_calc = l_c_f_c # avg_temp
+        self.created_column = c_c # roll average
+        self.period_window = p_w # time for calculation roll average (7 days)
 
     def _load_df(self):
         """ load desired data """
@@ -64,20 +64,30 @@ class roll_avg:
 
     def _add_visualisation(self):
         df = self._final()
-        df = df[[self.created_column,'file',self.load_column_to_sort]]
-        line_chart = sns.lineplot(x=df[self.load_column_to_sort], y=df[self.created_column], data=df)
-        return line_chart
+        x = df[self.load_column_to_sort]
+        y = df[self.created_column]
+        label_line_1 = self.load_source # Line 1
+        plt.plot(x,y,label=label_line,color='green', linestyle='dashed',linewidth=2, markersize=12)
+        plt.xlabel(self.load_column_to_sort)
+        plt.ylabel(self.created_column)
+# Axis-labels
+        # self.load_source
+        plt.legend(loc="upper left")
+        plt.show()
 
-# In [46]: sns.lineplot(x='num', y='sqr', data=pdnumsqr)
+    def _vis(self):
+
+        
 
 def _main():
     """ def to create objects and execute class methods """
     city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
     global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
-    city_data._add_visualisation()
+    # city_data._add_visualisation()
     print(city_data._final())
 
-    # city_data._add_visualisation()
+    city_data._add_visualisation()
+    global_data._add_visualisation()
     # print(global_data._add_visualisation())
 
 
