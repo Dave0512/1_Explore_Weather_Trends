@@ -63,32 +63,27 @@ class roll_avg:
         return df_final
 
     def _add_visualisation(self):
+        """ add line plot """
         df = self._final()
         x = df[self.load_column_to_sort]
         y = df[self.created_column]
         label_line_1 = self.load_source # Line 1
-        plt.plot(x,y,label=label_line,color='green', linestyle='dashed',linewidth=2, markersize=12)
+        plt.plot(x,y,label=label_line_1,color='green',linewidth=2, markersize=12)
+        # plt.plot(x,y,label=label_line_2,color='blue', linestyle='dashed',linewidth=2, markersize=12)
         plt.xlabel(self.load_column_to_sort)
         plt.ylabel(self.created_column)
-# Axis-labels
-        # self.load_source
         plt.legend(loc="upper left")
         plt.show()
-
-    def _vis(self):
-
-        
 
 def _main():
     """ def to create objects and execute class methods """
     city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
     global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
-    # city_data._add_visualisation()
+
     print(city_data._final())
 
     city_data._add_visualisation()
     global_data._add_visualisation()
-    # print(global_data._add_visualisation())
 
 
 
