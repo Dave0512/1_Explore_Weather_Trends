@@ -62,9 +62,11 @@ class roll_avg:
         df_final = self._add_col_source()
         return df_final
 
+
+
     def add_visualisation(self):
         """ add line plot """
-        df = self._final()
+        df = self.final()
         x = df[self.load_column_to_sort]
         y = df[self.created_column]
         label_line_1 = self.load_source # Line 1
@@ -80,10 +82,15 @@ def main():
     city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
     global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
 
-    print(city_data.final())
+    # Build a final df based on the global and local temp data
+    # Visualisation
+    # Based on final df
+    frames = [city_data.final(),global_data.final()]
+    df_total = pd.concat(frames,sort=False)
+    print(df_total)
 
-    city_data.add_visualisation()
-    global_data.add_visualisation()
+    # city_data.add_visualisation()
+    # global_data.add_visualisation()
 
 
 
