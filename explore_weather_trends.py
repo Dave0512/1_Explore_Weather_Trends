@@ -57,12 +57,12 @@ class roll_avg:
         df['file'] = df['file'].replace(np.NaN,self.load_source)
         return df
 
-    def _final(self):
+    def final(self):
         """ returns the final df to main """
         df_final = self._add_col_source()
         return df_final
 
-    def _add_visualisation(self):
+    def add_visualisation(self):
         """ add line plot """
         df = self._final()
         x = df[self.load_column_to_sort]
@@ -75,17 +75,25 @@ class roll_avg:
         plt.legend(loc="upper left")
         plt.show()
 
-def _main():
+def main():
     """ def to create objects and execute class methods """
     city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
     global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
 
-    print(city_data._final())
+    print(city_data.final())
 
-    city_data._add_visualisation()
-    global_data._add_visualisation()
+    city_data.add_visualisation()
+    global_data.add_visualisation()
 
 
 
 if __name__ == "__main__":
-    _main()
+    main()
+
+    # join or merge year local global
+    # name.split(".")[1] - datafile type (csv)
+    # class method start with _
+    # methods used outside - interface methods, public methods
+    # magic methods __ - automatically called
+    # add more comments: The reason why i wrote the code
+    # submit also a pdf - transfer .py to jupyter notebook (2 chapter)
