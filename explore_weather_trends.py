@@ -18,15 +18,15 @@ print(path_source)
 class roll_avg:
     """class to calculate roll_avg"""
 
-    def __init__(self, l_sour,data_type_sour,l_c_t_sort,l_c_f_c,c_c,p_w):
+    def __init__(self, load_source,data_type_source,load_column_to_sort,loaded_column_for_calc,created_column,period_window):
 
         """ Constructor method """
-        self.load_source = l_sour # file
-        self.data_type_source = data_type_sour
-        self.load_column_to_sort = l_c_t_sort # year
-        self.loaded_column_for_calc = l_c_f_c # avg_temp
-        self.created_column = c_c # roll average
-        self.period_window = p_w # time for calculation roll average (7 days)
+        self.load_source = load_source # file
+        self.data_type_source = data_type_source
+        self.load_column_to_sort = load_column_to_sort # year
+        self.loaded_column_for_calc = loaded_column_for_calc # avg_temp
+        self.created_column = created_column # roll average
+        self.period_window = period_window # time for calculation roll average (7 days)
 
     def _load_df(self):
         """ load desired data """
@@ -68,8 +68,8 @@ class roll_avg:
         x = df[self.load_column_to_sort]
         y = df[self.created_column]
         label_line_1 = self.load_source # Line 1
-        plt.plot(x,y,label=label_line_1,color='green',linewidth=2, markersize=12)
-        # plt.plot(x,y,label=label_line_2,color='blue', linestyle='dashed',linewidth=2, markersize=12)
+        plt.plot(x,y,label=label_line_1,color='blue',linewidth=2, markersize=12)
+        # plt.plot(x,y,label=label_line_2,color='green', linestyle='dashed',linewidth=2, markersize=12)
         plt.xlabel(self.load_column_to_sort)
         plt.ylabel(self.created_column)
         plt.legend(loc="upper left")
