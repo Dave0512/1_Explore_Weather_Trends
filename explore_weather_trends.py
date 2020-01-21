@@ -1,4 +1,9 @@
 
+# #####################################################
+# 2) Python Script to manipulate data
+# 3) Python Script to create a clear data visualisation
+# #####################################################
+
 
 import numpy as np
 import pandas as pd
@@ -12,7 +17,6 @@ sns.set(style='darkgrid')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 path_source = os.path.join(BASE_DIR + "/")
-# path_source = os.path.join(BASE_DIR + "/1_Sources/")
 
 print(path_source)
 
@@ -70,7 +74,7 @@ class roll_avg:
         return df_final
 
 def create_vlookup():
-    """ def to join global and local roll_avg for visualisation """
+    """ join global and local roll_avg for visualisation """
 
     city_data = roll_avg("city_data_hamburg",".csv","year",'avg_temp','created_col_rol_avg',7)
     global_data = roll_avg("global_data",".csv","year",'avg_temp','created_col_rol_avg',7)
@@ -97,12 +101,13 @@ def add_visualisation():
     plt.plot(x_1,y_1,label=label_line_1,color='blue',linewidth=2, markersize=12)
     plt.plot(x_2,y_2,label=label_line_2,color='green',linewidth=2, markersize=12)
     plt.xlabel("year")
-    plt.ylabel("temperature (rolling_average)")
+    plt.ylabel("temperature (rolling_average in °C)")
+    plt.title("Explore Weather Trends\n(global vs local)",fontdict={'fontsize':18},loc='center')
     plt.legend(loc="upper left")
     plt.show()
 
 def main():
-
+    """ main def to execute code """
     add_visualisation()
 
 if __name__ == "__main__":
